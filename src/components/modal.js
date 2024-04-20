@@ -1,9 +1,13 @@
+import {clearValidation,clearInput} from './validation.js'
+
 function openPopup(item) {
   item.classList.add("popup_is-animated");
   setTimeout(function () {
     item.classList.add("popup_is-opened");
   }, 10);
   document.addEventListener("keydown", closeByEscape);
+  clearValidation(item);
+  clearInput(item);
 }
 
 function closeByEscape(evt) {
@@ -12,26 +16,9 @@ function closeByEscape(evt) {
   }
 }
 
-function openPopopImage(evt) {
-  if (evt.target.classList.contains("card__image")) {
-    const popupTypeImage = document.querySelector(".popup_type_image");
-    const evtImage = evt.target
-      .closest(".places__item")
-      .querySelector(".card__image").src;
-    const imageTitle = evt.target
-      .closest(".places__item")
-      .querySelector(".card__title").textContent;
-    const popupImageLink = popupTypeImage.querySelector(".popup__image");
-    const popupTitle = popupTypeImage.querySelector(".popup__caption");
-    popupImageLink.src = evtImage;
-    popupTitle.textContent = imageTitle;
-    openPopup(popupTypeImage);
-  }
-}
-
 function closePopup(element) {
   element.classList.remove("popup_is-opened");
-  document.removeEventListener("keydown", closeByEscape(element));
+  document.removeEventListener("keydown", closeByEscape);
 }
 
 function closePopupByOverlay(evt) {
@@ -40,4 +27,4 @@ function closePopupByOverlay(evt) {
   }
 }
 
-export { openPopup, closePopup, openPopopImage, closePopupByOverlay };
+export { openPopup, closePopup, closePopupByOverlay };

@@ -1,5 +1,5 @@
 .profile__image {
-  background-image: url('../../../images/avatar.jpg');
+
   width: 120px;
   height: 120px;
   -webkit-border-radius: 50%;
@@ -8,6 +8,9 @@
   background-size: cover;
   background-position: center;
   margin: 0 29px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (max-width: 740px) {
@@ -20,4 +23,18 @@
   .profile__image {
     margin-right: 0;
   }
+}
+
+.profile__image:hover > .avatar-edit {
+opacity: 1;
+transition: opacity 0.4s linear;
+}
+
+.profile__image:hover{
+  background-color: grey;
+  background-blend-mode: multiply;
+}
+
+.avatar-edit{
+  opacity: 0;
 }

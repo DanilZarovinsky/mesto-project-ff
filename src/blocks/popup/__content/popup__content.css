@@ -17,3 +17,8 @@
     padding: 30px 20px;
   }
 }
+
+.popup__content_confirm-delete{
+  padding: 4px 36px 34px 36px;
+  min-height: 150px;
+}
