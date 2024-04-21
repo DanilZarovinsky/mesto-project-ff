@@ -1,22 +1,18 @@
-import {
-  cardContainer
-} from "../pages/index.js";
-import { requestDeleteCard,addLike,removeLike } from "./api.js";
-const confirmDeleteButton = document.querySelector('.confirm-delete-button');
+import { requestDeleteCard, addLike, removeLike } from "./api.js";
+const cardContainer = document.querySelector(".places__list");
 const newCardForm = document.getElementsByName("new-place")[0];
 const placeNameInput = document.querySelector(".popup__input_type_card-name");
-const linkInput = document.querySelector(".popup__input_type_url");
 
 function createCard(
   card,
   toggleLike,
   openPopopImage,
-  deleteCard,
   likes,
   userId,
   cardOwnerId,
   cardId,
-  onDelete
+  onDelete,
+  popupConfirmDelete
 ) {
   const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
@@ -25,14 +21,15 @@ function createCard(
   cardElement.querySelector(".card__image").src = card.link;
   cardElement.querySelector(".card__title").textContent = card.name;
   cardElement.querySelector(".card__image").alt = card.name;
-const popupConfirmDelete = document.querySelector('.popup_type_confirm-delete');
+
   const likesCounter = cardElement.querySelector(".card__like-counter");
   likesCounter.textContent = likes.length;
   if (userId !== cardOwnerId) {
-
     cardDeleteButton.classList.add("card__delete-button-visible");
   } else {
-    cardDeleteButton.addEventListener('click', () => onDelete(cardElement, cardId,popupConfirmDelete))
+    cardDeleteButton.addEventListener("click", () =>
+      onDelete(cardElement, cardId, popupConfirmDelete)
+    );
   }
   likes.forEach((element) => {
     if (element._id === userId || element.length === 0) {
@@ -41,7 +38,7 @@ const popupConfirmDelete = document.querySelector('.popup_type_confirm-delete');
   });
 
   likeButton.addEventListener("click", () =>
-  toggleLike(cardId, likeButton, likesCounter)
+    toggleLike(cardId, likeButton, likesCounter)
   );
   cardContainer.addEventListener("click", openPopopImage);
 
@@ -61,14 +58,16 @@ function toggleLike(cardId, likeButton, likesCounter) {
       .then((response) => response.json())
       .then((res) => {
         likesCounter.textContent = res.likes.length;
-      });
+      })
+      .catch((err) => console.log(err));
   } else {
     likeButton.classList.add("card__like-button_is-active");
     addLike(cardId)
       .then((response) => response.json())
       .then((res) => {
         likesCounter.textContent = res.likes.length;
-      });
+      })
+      .catch((err) => console.log(err));
   }
 }
 
@@ -78,5 +77,5 @@ export {
   toggleLike,
   newCardForm,
   placeNameInput,
-  linkInput,
+  cardContainer,
 };

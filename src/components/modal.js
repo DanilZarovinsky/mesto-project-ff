@@ -1,13 +1,9 @@
-import {clearValidation,clearInput} from './validation.js'
-
 function openPopup(item) {
   item.classList.add("popup_is-animated");
   setTimeout(function () {
     item.classList.add("popup_is-opened");
   }, 10);
   document.addEventListener("keydown", closeByEscape);
-  clearValidation(item);
-  clearInput(item);
 }
 
 function closeByEscape(evt) {
