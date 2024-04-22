@@ -32,62 +32,47 @@ export const sendUserData = (name, about) => {
       name: name,
       about: about,
     }),
-  }).catch((err) => console.log(err));
+  }).then((res) => checkResponse(res));
 };
 
 export const addNewCard = (name, link) => {
   return fetch(`${config.baseUrl}/cards`, {
     method: "POST",
-    headers: {
-      authorization: "a05cfe34-771a-4bf5-8666-626b8e6ea135",
-      "Content-Type": "application/json",
-    },
+    headers: config.headers,
     body: JSON.stringify({
       name: name,
       link: link,
     }),
-  }).catch((err) => console.log(err));
+  }).then((res) => checkResponse(res));
 };
 
 export const requestDeleteCard = (cardId) => {
-  fetch(`${config.baseUrl}/cards/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: "DELETE",
-    headers: {
-      authorization: "a05cfe34-771a-4bf5-8666-626b8e6ea135",
-      "Content-Type": "application/json",
-    },
-  }).catch((err) => console.log(err));
+    headers: config.headers,
+  }).then((res) => checkResponse(res));
 };
 
 export const addLike = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "PUT",
-    headers: {
-      authorization: "a05cfe34-771a-4bf5-8666-626b8e6ea135",
-      "Content-Type": "application/json",
-    },
-  }).catch((err) => console.log(err));
+    headers: config.headers,
+  }).then((res) => checkResponse(res));
 };
 
 export const removeLike = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "DELETE",
-    headers: {
-      authorization: "a05cfe34-771a-4bf5-8666-626b8e6ea135",
-      "Content-Type": "application/json",
-    },
-  }).catch((err) => console.log(err));
+    headers: config.headers,
+  }).then((res) => checkResponse(res));
 };
 
 export const sendNewAvatar = (avatarLink) => {
   return fetch(`${config.baseUrl}/users/me/avatar `, {
     method: "PATCH",
-    headers: {
-      authorization: "a05cfe34-771a-4bf5-8666-626b8e6ea135",
-      "Content-Type": "application/json",
-    },
+    headers: config.headers,
     body: JSON.stringify({
       avatar: avatarLink,
     }),
-  }).catch((err) => console.log(err));
+  }).then((res) => checkResponse(res));
 };

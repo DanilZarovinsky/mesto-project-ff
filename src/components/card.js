@@ -1,7 +1,6 @@
 import { requestDeleteCard, addLike, removeLike } from "./api.js";
-const cardContainer = document.querySelector(".places__list");
-const newCardForm = document.getElementsByName("new-place")[0];
-const placeNameInput = document.querySelector(".popup__input_type_card-name");
+
+const newCardForm = document.querySelector(".form-new-place");
 
 function createCard(
   card,
@@ -16,6 +15,7 @@ function createCard(
 ) {
   const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardImage = cardElement.querySelector(".card__image");
   const likeButton = cardElement.querySelector(".card__like-button");
   const cardDeleteButton = cardElement.querySelector(".card__delete-button");
   cardElement.querySelector(".card__image").src = card.link;
@@ -40,42 +40,36 @@ function createCard(
   likeButton.addEventListener("click", () =>
     toggleLike(cardId, likeButton, likesCounter)
   );
-  cardContainer.addEventListener("click", openPopopImage);
+  cardImage.addEventListener("click", openPopopImage);
 
   return cardElement;
 }
 
 function deleteCard(element, cardId) {
-  element.remove();
-  requestDeleteCard(cardId);
+  requestDeleteCard(cardId)
+    .then(() => {
+      element.remove();
+    })
+    .catch((err) => console.log(err));
 }
 
 function toggleLike(cardId, likeButton, likesCounter) {
   if (likeButton.classList.contains("card__like-button_is-active")) {
-    likeButton.classList.remove("card__like-button_is-active");
     likesCounter.textContent--;
     removeLike(cardId)
-      .then((response) => response.json())
       .then((res) => {
         likesCounter.textContent = res.likes.length;
+        likeButton.classList.remove("card__like-button_is-active");
       })
       .catch((err) => console.log(err));
   } else {
-    likeButton.classList.add("card__like-button_is-active");
     addLike(cardId)
-      .then((response) => response.json())
       .then((res) => {
         likesCounter.textContent = res.likes.length;
+        likeButton.classList.add("card__like-button_is-active");
       })
       .catch((err) => console.log(err));
   }
 }
 
-export {
-  createCard,
-  deleteCard,
-  toggleLike,
-  newCardForm,
-  placeNameInput,
-  cardContainer,
-};
+export { createCard, deleteCard, toggleLike, newCardForm };

@@ -100,6 +100,9 @@ function clearInput(formElement, validationConfig) {
   inputPopup.forEach((elm) => {
     elm.value = "";
   });
+  formElement
+    .querySelector(".button")
+    .classList.add(validationConfig.inactiveButtonClass);
 }
 
 export { enableValidation, clearInput, clearValidation };
