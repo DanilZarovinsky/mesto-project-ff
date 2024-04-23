@@ -105,4 +105,10 @@ function clearInput(formElement, validationConfig) {
     .classList.add(validationConfig.inactiveButtonClass);
 }
 
-export { enableValidation, clearInput, clearValidation };
+
+function buttonLock (form){
+    const button = form.querySelector('.button');
+    button.classList.add ('popup__button_disabled');
+}
+
+export { enableValidation, clearInput, clearValidation, buttonLock};

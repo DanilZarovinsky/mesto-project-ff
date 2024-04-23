@@ -1,6 +1,6 @@
 import { requestDeleteCard, addLike, removeLike } from "./api.js";
 
-const newCardForm = document.querySelector(".form-new-place");
+
 
 function createCard(
   card,
@@ -18,9 +18,9 @@ function createCard(
   const cardImage = cardElement.querySelector(".card__image");
   const likeButton = cardElement.querySelector(".card__like-button");
   const cardDeleteButton = cardElement.querySelector(".card__delete-button");
-  cardElement.querySelector(".card__image").src = card.link;
+  cardImage.src = card.link;
   cardElement.querySelector(".card__title").textContent = card.name;
-  cardElement.querySelector(".card__image").alt = card.name;
+  cardImage.alt = card.name;
 
   const likesCounter = cardElement.querySelector(".card__like-counter");
   likesCounter.textContent = likes.length;
@@ -46,7 +46,7 @@ function createCard(
 }
 
 function deleteCard(element, cardId) {
-  requestDeleteCard(cardId)
+  return  requestDeleteCard(cardId)
     .then(() => {
       element.remove();
     })
@@ -72,4 +72,4 @@ function toggleLike(cardId, likeButton, likesCounter) {
   }
 }
 
-export { createCard, deleteCard, toggleLike, newCardForm };
+export { createCard, deleteCard, toggleLike };
